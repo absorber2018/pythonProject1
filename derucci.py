@@ -3,7 +3,7 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
 
 driver = webdriver.Chrome()
-driver.get("http://login.derucci-smart.com/")
+driver.get("https://login.derucci-smart.com/dashboard")
 # assert "登录" in driver.title
 login = driver.find_element_by_name("username")
 login.clear()
@@ -26,10 +26,9 @@ for window in all_window:
         driver.switch_to.window(window)
 #get current page handle name
 current_window = driver.current_window_handle
-# elem = driver.find_element_by_xpath("//div[@id='app']/div[@class='ms-dashboard']/div[@class='ms-dashboard-content']/div[2]")
-elem = driver.find_element_by_css_selector("ms-item")
-print(elem)
-elem.click(elem)
+elem = driver.find_element_by_xpath('//*[@id="app"]/div/div[2]/div[2]')
+# print(elem)
+elem.click()
 # elem = driver.find_elements_by_css_selector("div.xh-highlight")
 # ActionChainsDriver = ActionChains(driver).click(elem)
 # ActionChainsDriver.perform()
