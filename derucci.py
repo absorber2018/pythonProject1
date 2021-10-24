@@ -29,21 +29,30 @@ jumpPage.click()
 # )
 # sleepRange.click()
 # assert "慕思智能云平台" in driver.page_source
-# operatPage = driver.find_element_by_xpath('//*[@id="app"]/div/div[2]/div[2]/div[1]/div/ul/div[7]/li/div')
-operatPage = WebDriverWait(driver, 5).until(
-    EC.presence_of_element_located((By.XPATH, '//*[@id="app"]/div/div[2]/div[2]/div[1]/div/ul/div[7]/li/div/i'))
+
+# operatPage = driver.find_element_by_css_selector('ul.el-menu>div.full-mode:nth-child(7)')
+operatPage = WebDriverWait(driver, 10).until(
+    EC.presence_of_element_located((By.CSS_SELECTOR, 'ul.el-menu>div.full-mode:nth-child(7)'))
 )
 operatPage.click()
-# driver.quit()
-#focus on current page
-# all_window = driver.window_handles
-# for window in all_window:
-#     if window != current_window:
-#         driver.switch_to.window(window)
-# #get current page handle name
-# current_window = driver.current_window_handle
 
-# elem = driver.find_elements_by_css_selector("div.xh-highlight")
-# ActionChainsDriver = ActionChains(driver).click(elem)
-# ActionChainsDriver.perform()
+# servicePage = driver.find_element_by_css_selector('ul.el-menu>div.full-mode:nth-child(7)>li>ul>div.nest-menu:nth-child(3)>a>li[tabindex="-1"]')
+servicePage = WebDriverWait(driver, 5).until(
+    EC.element_to_be_clickable((By.CSS_SELECTOR, 'ul.el-menu>div.full-mode:nth-child(7)>li>ul>div.nest-menu:nth-child(3)>a>li[tabindex="-1"]'))
+)
+servicePage.click()
+
+buildPage = WebDriverWait(driver, 5).until(
+    EC.element_to_be_clickable((By.CSS_SELECTOR, "section.app-main>div>div>div.el-card__body>div:nth-child(2)>button:nth-child(1)"))
+)
+buildPage.click()
+
+picSelect = WebDriverWait(driver, 5).until(
+    EC.presence_of_element_located((By.CSS_SELECTOR, "i.el-icon-plus"))
+)
+picSelect.click()
+# picSelect = driver.find_element_by_css_selector("i.el-icon-plus")
+picSelect.send_keys('c:/Users/Daenerys/Pictures/1626057879376_nFPq.jpg')
+
+
 # driver.close()
