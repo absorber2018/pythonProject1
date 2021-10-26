@@ -31,7 +31,7 @@ jumpPage.click()
 # sleepRange.click()
 # assert "慕思智能云平台" in driver.page_source
 
-operatPage = WebDriverWait(driver, 10).until(
+operatPage = WebDriverWait(driver, 12).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, 'ul.el-menu>div.full-mode:nth-child(7)'))
 )
 operatPage.click()
@@ -50,7 +50,7 @@ buildPage.click()
 time.sleep(5)
 #request 仅支持2M以下，jpg，png格式的二维码图片
 picSelect = driver.find_element_by_css_selector(".is-required input.el-upload__input")
-picSelect.send_keys(r'C:\Users\daenerysLi\Pictures\Camera Roll\7bd7ad6eddc451da088fda7ebbfd5266d0163228.jpg')
+picSelect.send_keys(r'C:\Users\Daenerys\Pictures\1626057879376_nFPq.jpg')
 # time.sleep(10)
 
 sickName = driver.find_element_by_css_selector(".is-required[placeholder]>div>div>input")
@@ -58,10 +58,10 @@ sickName.send_keys("tt")
 
 openStatus = driver.find_element_by_css_selector("div.el-input--medium>input[placeholder]")
 openStatus.click()
-time.sleep(5)
+# time.sleep(5)
 
-opStatus = driver.find_element_by_css_selector("div.el-select-dropdown>div>div>ul>li.hover+li")
+opStatus = driver.find_element_by_css_selector('script[type]+div>div>div>ul>[class="el-select-dropdown__item"]')
 opStatus.click()
 
-saveButton = driver.find_element_by_css_selector("div.el-form-item--medium>div>button.el-button--primary")
+saveButton = driver.find_element_by_css_selector('[class="el-button ms-btn ms-btn-dark item el-button--primary el-button--medium"]')
 # driver.close()
