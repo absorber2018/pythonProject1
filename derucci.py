@@ -5,9 +5,10 @@ from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
+import time
 
 driver = webdriver.Chrome()
-driver.get("https://login.derucci-smart.com/dashboard")
+driver.get("http://test-login.derucci.smart")
 # assert "登录" in driver.title
 login = driver.find_element_by_name("username")
 login.clear()
@@ -30,13 +31,12 @@ jumpPage.click()
 # sleepRange.click()
 # assert "慕思智能云平台" in driver.page_source
 
-# operatPage = driver.find_element_by_css_selector('ul.el-menu>div.full-mode:nth-child(7)')
 operatPage = WebDriverWait(driver, 10).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, 'ul.el-menu>div.full-mode:nth-child(7)'))
 )
 operatPage.click()
 
-# servicePage = driver.find_element_by_css_selector('ul.el-menu>div.full-mode:nth-child(7)>li>ul>div.nest-menu:nth-child(3)>a>li[tabindex="-1"]')
+servicePage = driver.find_element_by_css_selector('ul.el-menu>div.full-mode:nth-child(7)>li>ul>div.nest-menu:nth-child(3)>a>li[tabindex="-1"]')
 servicePage = WebDriverWait(driver, 5).until(
     EC.element_to_be_clickable((By.CSS_SELECTOR, 'ul.el-menu>div.full-mode:nth-child(7)>li>ul>div.nest-menu:nth-child(3)>a>li[tabindex="-1"]'))
 )
@@ -47,12 +47,21 @@ buildPage = WebDriverWait(driver, 5).until(
 )
 buildPage.click()
 
-picSelect = WebDriverWait(driver, 5).until(
-    EC.presence_of_element_located((By.CSS_SELECTOR, "i.el-icon-plus"))
-)
-picSelect.click()
-# picSelect = driver.find_element_by_css_selector("i.el-icon-plus")
-picSelect.send_keys('c:/Users/Daenerys/Pictures/1626057879376_nFPq.jpg')
+time.sleep(5)
+#request 仅支持2M以下，jpg，png格式的二维码图片
+picSelect = driver.find_element_by_css_selector(".is-required input.el-upload__input")
+picSelect.send_keys(r'C:\Users\daenerysLi\Pictures\Camera Roll\7bd7ad6eddc451da088fda7ebbfd5266d0163228.jpg')
+# time.sleep(10)
 
+sickName = driver.find_element_by_css_selector(".is-required[placeholder]>div>div>input")
+sickName.send_keys("tt")
 
+openStatus = driver.find_element_by_css_selector("div.el-input--medium>input[placeholder]")
+openStatus.click()
+time.sleep(5)
+
+opStatus = driver.find_element_by_css_selector("div.el-select-dropdown>div>div>ul>li.hover+li")
+opStatus.click()
+
+saveButton = driver.find_element_by_css_selector("div.el-form-item--medium>div>button.el-button--primary")
 # driver.close()
