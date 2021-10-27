@@ -12,7 +12,7 @@ driver.get("http://test-login.derucci.smart")
 # assert "登录" in driver.title
 login = driver.find_element_by_name("username")
 login.clear()
-login.send_keys("15609263915")
+login.send_keys("15191897268")
 login = driver.find_element_by_name("password")
 login.clear()
 login.send_keys("111111")
@@ -31,12 +31,12 @@ jumpPage.click()
 # sleepRange.click()
 # assert "慕思智能云平台" in driver.page_source
 
-operatPage = WebDriverWait(driver, 12).until(
+operatPage = WebDriverWait(driver, 10).until(
     EC.presence_of_element_located((By.CSS_SELECTOR, 'ul.el-menu>div.full-mode:nth-child(7)'))
 )
 operatPage.click()
 
-servicePage = driver.find_element_by_css_selector('ul.el-menu>div.full-mode:nth-child(7)>li>ul>div.nest-menu:nth-child(3)>a>li[tabindex="-1"]')
+# servicePage = driver.find_element_by_css_selector('ul.el-menu>div.full-mode:nth-child(7)>li>ul>div.nest-menu:nth-child(3)>a>li[tabindex="-1"]')
 servicePage = WebDriverWait(driver, 5).until(
     EC.element_to_be_clickable((By.CSS_SELECTOR, 'ul.el-menu>div.full-mode:nth-child(7)>li>ul>div.nest-menu:nth-child(3)>a>li[tabindex="-1"]'))
 )
@@ -50,18 +50,26 @@ buildPage.click()
 time.sleep(5)
 #request 仅支持2M以下，jpg，png格式的二维码图片
 picSelect = driver.find_element_by_css_selector(".is-required input.el-upload__input")
-picSelect.send_keys(r'C:\Users\Daenerys\Pictures\1626057879376_nFPq.jpg')
+picSelect.send_keys(r'C:\Users\daenerysLi\Pictures\src=http___editor-img.888ban.com_ips_templ_preview_d6_1f_71_lg_44345_1612348615_601a7cc7eff16.jpg!w280_png_auth_key=2249395200-0-0-d00c70e2caf193d8ed673dd775fd0a9e&refer=http___editor-img.888ban.jpg')
+# picSelect.send_keys(r'C:\Users\Daenerys\Pictures\1626057879376_nFPq.jpg')
 # time.sleep(10)
-
-sickName = driver.find_element_by_css_selector(".is-required[placeholder]>div>div>input")
-sickName.send_keys("tt")
+sickName = "tt"
+sickNameIn = driver.find_element_by_css_selector(".is-required[placeholder]>div>div>input")
+sickNameIn.send_keys(sickName)
+time.sleep(5)
 
 openStatus = driver.find_element_by_css_selector("div.el-input--medium>input[placeholder]")
 openStatus.click()
-# time.sleep(5)
 
 opStatus = driver.find_element_by_css_selector('script[type]+div>div>div>ul>[class="el-select-dropdown__item"]')
 opStatus.click()
 
 saveButton = driver.find_element_by_css_selector('[class="el-button ms-btn ms-btn-dark item el-button--primary el-button--medium"]')
+
+# test
+findSick = driver.find_element_by_css_selector(".el-form-item__content>div>input").send_keys(sickName)
+findButton = driver.find_element_by_css_selector('[class="el-button ms-btn ms-btn-dark el-button--primary el-button--small"]')
+findOn = driver.find_element_by_css_selector('.el-table_1_column_2 >div[class="cell el-tooltip"]')
+sendTimes = driver.find_element_by_css_selector('.el-table_1_column_4>div[class="cell el-tooltip"]')
+assert (sickName in findOn.text) && ("0" in sendTimes.text)
 # driver.close()
