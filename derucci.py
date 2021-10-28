@@ -1,5 +1,6 @@
 from telnetlib import EC
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.by import By
@@ -9,6 +10,7 @@ import time
 
 driver = webdriver.Chrome()
 driver.get("http://test-login.derucci.smart")
+driver.maximize_window()
 # assert "登录" in driver.title
 login = driver.find_element_by_name("username")
 login.clear()
@@ -50,8 +52,8 @@ buildPage.click()
 time.sleep(5)
 #request 仅支持2M以下，jpg，png格式的二维码图片
 picSelect = driver.find_element_by_css_selector(".is-required input.el-upload__input")
-picSelect.send_keys(r'C:\Users\daenerysLi\Pictures\src=http___editor-img.888ban.com_ips_templ_preview_d6_1f_71_lg_44345_1612348615_601a7cc7eff16.jpg!w280_png_auth_key=2249395200-0-0-d00c70e2caf193d8ed673dd775fd0a9e&refer=http___editor-img.888ban.jpg')
-# picSelect.send_keys(r'C:\Users\Daenerys\Pictures\1626057879376_nFPq.jpg')
+# picSelect.send_keys(r'C:\Users\daenerysLi\Pictures\src=http___editor-img.888ban.com_ips_templ_preview_d6_1f_71_lg_44345_1612348615_601a7cc7eff16.jpg!w280_png_auth_key=2249395200-0-0-d00c70e2caf193d8ed673dd775fd0a9e&refer=http___editor-img.888ban.jpg')
+picSelect.send_keys(r'C:\Users\Daenerys\Pictures\1626057879376_nFPq.jpg')
 # time.sleep(10)
 sickName = "tt"
 sickNameIn = driver.find_element_by_css_selector(".is-required[placeholder]>div>div>input")
@@ -65,10 +67,14 @@ opStatus = driver.find_element_by_css_selector('script[type]+div>div>div>ul>[cla
 opStatus.click()
 
 saveButton = driver.find_element_by_css_selector('[class="el-button ms-btn ms-btn-dark item el-button--primary el-button--medium"]')
+ActionChains(driver).move_to_element(saveButton).click(saveButton).perform()
+
+closeCurrentPage = driver.find_element_by_css_selector(".router-link-active.active>div>svg>g>path:nth-child(1)")
 time.sleep(5)
 
-serchPage = driver.find_element_by_css_selector("客服管理")
+closeCurrentPage.click()
 time.sleep(5)
+
 # test
 findSick = driver.find_element_by_css_selector(".el-form-item__content>div>input").send_keys(sickName)
 findButton = driver.find_element_by_css_selector('[class="el-button ms-btn ms-btn-dark el-button--primary el-button--small"]')
@@ -76,6 +82,11 @@ findButton.click()
 # findOn = driver.find_element_by_css_selector('.el-table_1_column_2 >div[class="cell el-tooltip"]')
 # sendTimes = driver.find_element_by_css_selector('.el-table_1_column_4>div[class="cell el-tooltip"]')
 
-driver.assertIsNotNone(driver.find_element_by_css_selector('.el-table_1_column_2 >div[class="cell el-tooltip"]'),'未查找到新添加的用户,Fail')
-# assert (sickName in findOn.text) && ("0" in sendTimes.text)
+try:
+ findSick = driver.find_element_by_css_selector('.el-table_1_column_2 >div[class="cell el-tooltip"]')
+except(NoSuchElementException):
+ print("用户未新建成功")
+else:
+    print("用户新建成功")
+
 # driver.close()
