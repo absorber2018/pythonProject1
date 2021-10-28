@@ -12,7 +12,7 @@ driver.get("http://test-login.derucci.smart")
 # assert "登录" in driver.title
 login = driver.find_element_by_name("username")
 login.clear()
-login.send_keys("15191897268")
+login.send_keys("15609263915")
 login = driver.find_element_by_name("password")
 login.clear()
 login.send_keys("111111")
@@ -60,16 +60,22 @@ time.sleep(5)
 
 openStatus = driver.find_element_by_css_selector("div.el-input--medium>input[placeholder]")
 openStatus.click()
-
+time.sleep(5)
 opStatus = driver.find_element_by_css_selector('script[type]+div>div>div>ul>[class="el-select-dropdown__item"]')
 opStatus.click()
 
 saveButton = driver.find_element_by_css_selector('[class="el-button ms-btn ms-btn-dark item el-button--primary el-button--medium"]')
+time.sleep(5)
 
+serchPage = driver.find_element_by_css_selector("客服管理")
+time.sleep(5)
 # test
 findSick = driver.find_element_by_css_selector(".el-form-item__content>div>input").send_keys(sickName)
 findButton = driver.find_element_by_css_selector('[class="el-button ms-btn ms-btn-dark el-button--primary el-button--small"]')
-findOn = driver.find_element_by_css_selector('.el-table_1_column_2 >div[class="cell el-tooltip"]')
-sendTimes = driver.find_element_by_css_selector('.el-table_1_column_4>div[class="cell el-tooltip"]')
-assert (sickName in findOn.text) && ("0" in sendTimes.text)
+findButton.click()
+# findOn = driver.find_element_by_css_selector('.el-table_1_column_2 >div[class="cell el-tooltip"]')
+# sendTimes = driver.find_element_by_css_selector('.el-table_1_column_4>div[class="cell el-tooltip"]')
+
+driver.assertIsNotNone(driver.find_element_by_css_selector('.el-table_1_column_2 >div[class="cell el-tooltip"]'),'未查找到新添加的用户,Fail')
+# assert (sickName in findOn.text) && ("0" in sendTimes.text)
 # driver.close()
